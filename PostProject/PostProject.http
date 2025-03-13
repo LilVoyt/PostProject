@@ -1,0 +1,6 @@
+@PostProject_HostAddress = http://localhost:5191
+
+GET {{PostProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
