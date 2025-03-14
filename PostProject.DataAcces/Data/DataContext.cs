@@ -73,7 +73,6 @@ namespace PostProject.DataAcces.Data
                 .WithMany(s => s.Boxes)
                 .HasForeignKey(b => b.ShipmentId);
             });
-
             base.OnModelCreating(modelBuilder);
         }
     }
