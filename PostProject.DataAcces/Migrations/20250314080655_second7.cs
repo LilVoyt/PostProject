@@ -6,11 +6,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PostProject.DataAcces.Migrations
 {
     /// <inheritdoc />
-    public partial class innitial : Migration
+    public partial class second7 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateJoined = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
@@ -47,41 +64,7 @@ namespace PostProject.DataAcces.Migrations
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Boxes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ShipmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Weight = table.Column<double>(type: "float", nullable: false),
-                    Height = table.Column<double>(type: "float", nullable: false),
-                    Width = table.Column<double>(type: "float", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Boxes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Clients",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateJoined = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ShipmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,7 +76,7 @@ namespace PostProject.DataAcces.Migrations
                     DepartmentReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClientSenderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClientReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TrackId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TrackId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DepartureDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -129,11 +112,33 @@ namespace PostProject.DataAcces.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Boxes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ShipmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Weight = table.Column<double>(type: "float", nullable: false),
+                    Height = table.Column<double>(type: "float", nullable: false),
+                    Width = table.Column<double>(type: "float", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Boxes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Boxes_Shipments_ShipmentId",
+                        column: x => x.ShipmentId,
+                        principalTable: "Shipments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TrackLogs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TrackId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TrackId = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProceedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -144,18 +149,12 @@ namespace PostProject.DataAcces.Migrations
                         name: "FK_TrackLogs_Shipments_TrackId",
                         column: x => x.TrackId,
                         principalTable: "Shipments",
-                        principalColumn: "TrackId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TrackId");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Boxes_ShipmentId",
                 table: "Boxes",
-                column: "ShipmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clients_ShipmentId",
-                table: "Clients",
                 column: "ShipmentId");
 
             migrationBuilder.CreateIndex(
@@ -193,31 +192,11 @@ namespace PostProject.DataAcces.Migrations
                 name: "IX_TrackLogs_TrackId",
                 table: "TrackLogs",
                 column: "TrackId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Boxes_Shipments_ShipmentId",
-                table: "Boxes",
-                column: "ShipmentId",
-                principalTable: "Shipments",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Clients_Shipments_ShipmentId",
-                table: "Clients",
-                column: "ShipmentId",
-                principalTable: "Shipments",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Clients_Shipments_ShipmentId",
-                table: "Clients");
-
             migrationBuilder.DropTable(
                 name: "Boxes");
 

@@ -12,8 +12,8 @@ using PostProject.DataAcces.Data;
 namespace PostProject.DataAcces.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250312123957_client-fixes")]
-    partial class clientfixes
+    [Migration("20250314080655_second7")]
+    partial class second7
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,7 @@ namespace PostProject.DataAcces.Migrations
                         .HasColumnType("float");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<Guid>("ShipmentId")
                         .HasColumnType("uniqueidentifier");
@@ -177,11 +177,12 @@ namespace PostProject.DataAcces.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("TrackId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -214,7 +215,7 @@ namespace PostProject.DataAcces.Migrations
 
                     b.Property<string>("TrackId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -228,7 +229,7 @@ namespace PostProject.DataAcces.Migrations
                     b.HasOne("PostProject.DataAcces.Entities.Shipment", "Shipment")
                         .WithMany("Boxes")
                         .HasForeignKey("ShipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Shipment");
@@ -239,7 +240,7 @@ namespace PostProject.DataAcces.Migrations
                     b.HasOne("PostProject.DataAcces.Entities.Department", "Department")
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Department");
@@ -286,7 +287,7 @@ namespace PostProject.DataAcces.Migrations
                         .WithMany("TrackLogs")
                         .HasForeignKey("TrackId")
                         .HasPrincipalKey("TrackId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Shipment");

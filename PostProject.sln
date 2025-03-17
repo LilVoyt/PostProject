@@ -3,12 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostProject.Presentation", "PostProject\PostProject.Presentation.csproj", "{3C682D8E-F7D3-4A42-BE16-3C7CF85297A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostProject.Presentation", "PostProject\PostProject.Presentation.csproj", "{3C682D8E-F7D3-4A42-BE16-3C7CF85297A1}"
 	ProjectSection(ProjectDependencies) = postProject
+		{7ADCB880-CB29-4985-83C9-1ED1637DF93D} = {7ADCB880-CB29-4985-83C9-1ED1637DF93D}
 		{D082F7DF-AADC-4050-B0C5-70AF7D38C056} = {D082F7DF-AADC-4050-B0C5-70AF7D38C056}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostProject.DataAcces", "PostProject.DataAcces\PostProject.DataAcces.csproj", "{D082F7DF-AADC-4050-B0C5-70AF7D38C056}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostProject.DataAcces", "PostProject.DataAcces\PostProject.DataAcces.csproj", "{D082F7DF-AADC-4050-B0C5-70AF7D38C056}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostProject.Application", "PostProject.BusinessLogic\PostProject.Application.csproj", "{7ADCB880-CB29-4985-83C9-1ED1637DF93D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D082F7DF-AADC-4050-B0C5-70AF7D38C056} = {D082F7DF-AADC-4050-B0C5-70AF7D38C056}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +30,10 @@ Global
 		{D082F7DF-AADC-4050-B0C5-70AF7D38C056}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D082F7DF-AADC-4050-B0C5-70AF7D38C056}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D082F7DF-AADC-4050-B0C5-70AF7D38C056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ADCB880-CB29-4985-83C9-1ED1637DF93D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ADCB880-CB29-4985-83C9-1ED1637DF93D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ADCB880-CB29-4985-83C9-1ED1637DF93D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ADCB880-CB29-4985-83C9-1ED1637DF93D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
