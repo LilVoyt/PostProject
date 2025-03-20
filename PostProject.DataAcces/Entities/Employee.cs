@@ -17,6 +17,7 @@ namespace PostProject.DataAcces.Entities
         public string Role { get; set; }
         public DateTime BirthDay { get; set; }
         public DateTime DateHired { get; set; }
+        public string Password { get; set; }
         public virtual Department Department { get; set; }
     }
 }

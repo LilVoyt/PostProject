@@ -11,16 +11,25 @@ namespace PostProject.Presentation.Controllers
     public class ClientController(IMediator mediator) : ControllerBase
     {
         [HttpGet("get")]
-        public async Task<ClientDto> GetClients()
+        public async Task<RegisterDto> GetClients()
         {
             return await mediator.Send(new GetClientsQuery());
         }
 
-        [HttpPost("post")]
-        public async Task<ClientDto> PostClient(ClientDto clientDto)
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterClient(RegisterDto registerDto)
         {
-            PostClientCommand postClientCommand = new PostClientCommand(clientDto);
-            return await mediator.Send(postClientCommand);
+            RegisterClientCommand registerClientCommand = new RegisterClientCommand(registerDto);
+            var res = await mediator.Send(registerClientCommand);
+            return Ok(res);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginClient(LoginDto loginDto)
+        {
+            LoginClientCommand editClientCommand = new LoginClientCommand(loginDto);
+            var res = await mediator.Send(editClientCommand);
+            return Ok(res);
         }
     }
 }

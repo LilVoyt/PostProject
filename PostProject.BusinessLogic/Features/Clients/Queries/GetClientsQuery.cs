@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace PostProject.Application.Features.Clients.Queries
 {
-    public sealed record GetClientsQuery() : IRequest<ClientDto>;
+    public sealed record GetClientsQuery() : IRequest<RegisterDto>;
 
-    public class GetClientsQueryHandler : IRequestHandler<GetClientsQuery, ClientDto>
+    public class GetClientsQueryHandler : IRequestHandler<GetClientsQuery, RegisterDto>
     {
-        public Task<ClientDto> Handle(GetClientsQuery request, CancellationToken cancellationToken)
+        public Task<RegisterDto> Handle(GetClientsQuery request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

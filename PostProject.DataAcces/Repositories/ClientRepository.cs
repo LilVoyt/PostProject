@@ -17,7 +17,7 @@ namespace PostProject.DataAcces.Repositories
         {
             var res = await dataContext.Clients.FirstOrDefaultAsync(c => c.PhoneNumber == client.PhoneNumber);
 
-            if (res != null)
+            if (res == null)
             {
                 await dataContext.AddAsync(client);
                 await dataContext.SaveChangesAsync();
@@ -29,9 +29,12 @@ namespace PostProject.DataAcces.Repositories
             }
         }
 
-        //public async Task<IEnumerable<Client>> GetAllAsync()
-        //{
-        //    await
-        //}
+        public async Task<Client> FindByPhoneNumberAsync(string PhoneNumber)
+        {
+            Client client = await dataContext.Clients.FirstOrDefaultAsync(c => c.PhoneNumber == PhoneNumber)
+                ?? throw new DataException("User with this phone number was not found!");
+
+            return client;
+        }
     }
 }
