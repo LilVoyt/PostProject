@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PostProject.Application.Features.Clients.Commands;
 using PostProject.Application.Features.Clients.Queries;
 using PostProject.Application.Features.DTOs;
 
@@ -13,6 +14,13 @@ namespace PostProject.Presentation.Controllers
         public async Task<ClientDto> GetClients()
         {
             return await mediator.Send(new GetClientsQuery());
+        }
+
+        [HttpPost("post")]
+        public async Task<ClientDto> PostClient(ClientDto clientDto)
+        {
+            PostClientCommand postClientCommand = new PostClientCommand(clientDto);
+            return await mediator.Send(postClientCommand);
         }
     }
 }
