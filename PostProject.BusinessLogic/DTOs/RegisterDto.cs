@@ -5,8 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PostProject.Application.Features.DTOs
+namespace PostProject.Application.DTOs
 {
-    public record RegisterDto(string FirstName, string LastName, DateTime BirthDay, 
+    public record RegisterDto(string FirstName, string LastName, DateTime BirthDay,
         string PhoneNumber, string Email, DateTime DateJoined, string Password);
 }

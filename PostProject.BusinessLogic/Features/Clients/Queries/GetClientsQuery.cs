@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PostProject.Application.Features.DTOs;
+using PostProject.Application.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

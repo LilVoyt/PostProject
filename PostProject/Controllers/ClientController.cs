@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PostProject.Application.DTOs;
 using PostProject.Application.Features.Clients.Commands;
 using PostProject.Application.Features.Clients.Queries;
-using PostProject.Application.Features.DTOs;
 
 namespace PostProject.Presentation.Controllers
 {
@@ -11,6 +12,7 @@ namespace PostProject.Presentation.Controllers
     public class ClientController(IMediator mediator) : ControllerBase
     {
         [HttpGet("get")]
+        [Authorize]
         public async Task<RegisterDto> GetClients()
         {
             return await mediator.Send(new GetClientsQuery());

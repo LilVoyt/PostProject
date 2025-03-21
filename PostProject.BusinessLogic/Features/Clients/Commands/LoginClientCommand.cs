@@ -1,6 +1,7 @@
 ﻿using MediatR;
-using PostProject.Application.Features.DTOs;
-using PostProject.Application.Features.Security.Password;
+using PostProject.Application.DTOs;
+using PostProject.Application.Security.Jwt;
+using PostProject.Application.Security.Password;
 using PostProject.DataAcces.Entities;
 using PostProject.DataAcces.Repositories;
 using System;
@@ -11,11 +12,12 @@ using System.Threading.Tasks;
 
 namespace PostProject.Application.Features.Clients.Commands
 {
-    public sealed record LoginClientCommand(LoginDto LoginDto) : IRequest<Guid>;
+    public sealed record LoginClientCommand(LoginDto LoginDto) : IRequest<string>;
 
-    public class LoginClientCommandHandler(IClientRepository clientRepository, IPasswordHasher passwordHasher) : IRequestHandler<LoginClientCommand, Guid>
+    public class LoginClientCommandHandler(IClientRepository clientRepository, IPasswordHasher passwordHasher, 
+        IJwtHandler jwtHandler) : IRequestHandler<LoginClientCommand, string>
     {
-        public async Task<Guid> Handle(LoginClientCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(LoginClientCommand request, CancellationToken cancellationToken)
         {
             Client client = await clientRepository.FindByPhoneNumberAsync(request.LoginDto.PhoneNumber);
             bool isPasswordValid = passwordHasher.Verify(request.LoginDto.Password, client.Password);
@@ -23,7 +25,8 @@ namespace PostProject.Application.Features.Clients.Commands
             {
                 throw new KeyNotFoundException("Password is not valid");
             }
-            return client.Id;
+
+            return jwtHandler.Handle(client);
         }
     }
 }

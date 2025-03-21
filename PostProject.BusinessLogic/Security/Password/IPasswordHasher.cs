@@ -1,4 +1,4 @@
-﻿namespace PostProject.Application.Features.Security.Password
+﻿namespace PostProject.Application.Security.Password
 {
     public interface IPasswordHasher
     {

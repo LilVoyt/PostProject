@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PostProject.Application.Features.MappingProfiles
+namespace PostProject.Application.MappingProfiles
 {
     public class ClientProfile : Profile
     {

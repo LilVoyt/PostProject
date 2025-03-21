@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PostProject.Application.Features.Security.Password
+namespace PostProject.Application.Security.Password
 {
     public class PasswordHasher : IPasswordHasher
     {
