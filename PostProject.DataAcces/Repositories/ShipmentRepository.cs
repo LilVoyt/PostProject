@@ -1,4 +1,5 @@
-﻿using PostProject.DataAcces.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PostProject.DataAcces.Data;
 using PostProject.DataAcces.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,13 @@ namespace PostProject.DataAcces.Repositories
             await dataContext.AddAsync(shipment);
             await dataContext.SaveChangesAsync();
             return shipment.Id;
+        }
+
+
+        public async Task<List<Shipment>> GetShipmentsByClientId(Guid id)
+        {
+            List<Shipment> shipments = await dataContext.Shipments.Where(s => s.ClientSenderId == id || s.ClientReceiverId == id).ToListAsync();
+            return shipments;
         }
     }
 }

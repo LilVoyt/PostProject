@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PostProject.Application.Features.Shipments.Commands;
+using PostProject.Application.Features.Shipments.Queries;
 
 namespace PostProject.Presentation.Controllers
 {
@@ -16,5 +17,13 @@ namespace PostProject.Presentation.Controllers
             return Ok(trackId);
         }
 
+        [HttpGet("get-shipments")]
+        public async Task<IActionResult> GetShipments(Guid Id)
+        {
+            GetShipmentsByClientId getShipmentsByClientId = new GetShipmentsByClientId(Id);
+
+            var res = await mediator.Send(getShipmentsByClientId);
+            return Ok(res);
+        }
     }
 }

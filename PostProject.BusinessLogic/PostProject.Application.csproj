@@ -15,8 +15,4 @@
     <ProjectReference Include="..\PostProject.DataAcces\PostProject.DataAcces.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Shipment\Queries\" />
-  </ItemGroup>
-
 </Project>
