@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace PostProject.Application.DTOs
 {
-    public record BoxDto(Guid Id, double Weight, double Height, double Width, decimal? Price);
+    public record DepartmentDto(Guid Id, string Address, string PhoneNumber, string Email);
 }

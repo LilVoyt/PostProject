@@ -13,11 +13,10 @@ using System.Threading.Tasks;
 
 namespace PostProject.Application.Features.Shipments.Commands
 {
-    public sealed record AddShipmentCommand(Guid DepartmentSenderId, Guid DepartmentReceiverId, Guid ClientSenderId,
-        Guid ClientReceiverId, string Description, decimal? Price, DateTime DepartureDate, List<BoxDto> BoxDtos) : IRequest<string>;
+    public sealed record AddShipmentCommand(AddShipmentDto AddShipmentDto) : IRequest<string>;
 
     public class AddShipmentCommandHandler(IShipmentRepository shipmentRepository, IMapper mapper, 
-        ITrackIdService trackIdService, IBoxRepository boxRepository) 
+        ITrackIdService trackIdService, IBoxRepository boxRepository, ITrackLogRepository trackLogRepository) 
         : IRequestHandler<AddShipmentCommand, string>
     {
         public async Task<string> Handle(AddShipmentCommand request, CancellationToken cancellationToken)
@@ -27,11 +26,9 @@ namespace PostProject.Application.Features.Shipments.Commands
                 opt.Items["TrackId"] = trackIdService.GenerateNumericTrackId();
             });
 
-            await shipmentRepository.PostShipment(shipment);
-
             List<Box> boxes = new List<Box>();
 
-            foreach(BoxDto boxDto in request.BoxDtos)
+            foreach(BoxDto boxDto in request.AddShipmentDto.BoxDtos)
             {
                 boxes.Add(mapper.Map<Box>(boxDto, opt =>
                 {
@@ -39,7 +36,11 @@ namespace PostProject.Application.Features.Shipments.Commands
                 }));
             }
 
+            await shipmentRepository.PostShipment(shipment);
+
             await boxRepository.PostBoxesAsync(boxes);
+
+            await trackLogRepository.LogShipment(shipment.Id, "Shipment created!");
 
             return shipment.TrackId;
         }

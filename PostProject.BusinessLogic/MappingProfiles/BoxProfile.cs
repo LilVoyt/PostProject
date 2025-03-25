@@ -15,7 +15,9 @@ namespace PostProject.Application.MappingProfiles
         public BoxProfile()
         {
             CreateMap<BoxDto, Box>()
-                .ForMember(dest => dest.ShipmentId, opt =>
+                .ForMember(dest => dest.Id, opt =>
+                   opt.MapFrom(src => src.Id))
+               .ForMember(dest => dest.ShipmentId, opt =>
                    opt.MapFrom((src, dest, destMember, context) => context.Items["ShipmentId"]))
                .ForMember(dest => dest.Weight, opt =>
                    opt.MapFrom(src => src.Weight))

@@ -29,6 +29,7 @@ builder.Services.AddSingleton<ITrackIdService, TrackIdService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IBoxRepository, BoxRepository>();
+builder.Services.AddScoped<ITrackLogRepository, TrackLogRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

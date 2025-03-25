@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace PostProject.Application.DTOs
 {
-    public record BoxDto(Guid Id, double Weight, double Height, double Width, decimal? Price);
+    public record TrackLogDto(Guid Id, string TrackId, string Message, DateTime ProceedTime);
 }

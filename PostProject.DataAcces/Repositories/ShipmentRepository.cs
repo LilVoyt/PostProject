@@ -21,7 +21,14 @@ namespace PostProject.DataAcces.Repositories
 
         public async Task<List<Shipment>> GetShipmentsByClientId(Guid id)
         {
-            List<Shipment> shipments = await dataContext.Shipments.Where(s => s.ClientSenderId == id || s.ClientReceiverId == id).ToListAsync();
+            List<Shipment> shipments = await dataContext.Shipments
+                .Where(s => s.ClientSenderId == id || s.ClientReceiverId == id)
+                    .Include(s => s.DepartmentSender)
+                    .Include(s => s.DepartmentReceiver)
+                    .Include(s => s.ClientSender)
+                    .Include(s => s.ClientReceiver)
+                    .ToListAsync();
+
             return shipments;
         }
     }
